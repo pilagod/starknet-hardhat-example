@@ -1,8 +1,9 @@
 import { expect } from "chai";
 import { starknet } from "hardhat";
 import { StarknetContract, StarknetContractFactory, ArgentAccount } from "hardhat/types/runtime";
+import { uint256 } from "starknet";
 import { TIMEOUT } from "./constants";
-import { ensureEnvVar, expectFeeEstimationStructure } from "./util";
+import { expectFeeEstimationStructure, getETHContract, getPredeployedAccounts } from "./util";
 
 describe("Argent account", function () {
     this.timeout(TIMEOUT);
@@ -25,15 +26,21 @@ describe("Argent account", function () {
         utilContract = await utilContractFactory.deploy({}, { salt: "0x42" });
         console.log("Util deployed at", utilContract.address);
 
-        account = <ArgentAccount>(
-            await starknet.getAccountFromAddress(
-                ensureEnvVar("ARGENT_ACCOUNT_ADDRESS"),
-                ensureEnvVar("ARGENT_ACCOUNT_PRIVATE_KEY"),
-                "Argent"
-            )
-        );
+        const [operator] = await getPredeployedAccounts();
 
+        account = (await starknet.deployAccount("Argent")) as ArgentAccount;
+        await account.initialize({ fundedAccount: operator });
+
+        const ETH = await getETHContract();
+        await operator.invoke(ETH, "transfer", {
+            recipient: account.address,
+            amount: uint256.bnToUint256((10n ** 18n).toString())
+        });
+        const { balance } = await ETH.call("balanceOf", {
+            account: account.address
+        });
         console.log(`Account address: ${account.address}`);
+        console.log(`Account balance: ${uint256.uint256ToBN(balance)}`);
         console.log(`Public key: ${account.publicKey}`);
         console.log(`Guardian public key: ${account.guardianPublicKey}`);
     });
