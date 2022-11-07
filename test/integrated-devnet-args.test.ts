@@ -16,6 +16,6 @@ describe("Starknet with optional arguments in integrated devnet", function () {
         console.log("Deployed at", contract.address);
         const latestBlock = await starknet.getBlock();
 
-        expect(parseInt(latestBlock.gas_price, 16)).to.be.equal(2000000000);
+        expect(parseInt(latestBlock.gas_price, 16)).to.be.equal(1);
     });
 });
