@@ -4,7 +4,7 @@ import { expect } from "chai";
 import { starknet, config } from "hardhat";
 import { StarknetContractFactory } from "hardhat/types";
 
-describe("Starknet", function () {
+describe.skip("Starknet", function () {
     const cacheDirpath = path.join(config.paths.cache, "cairo-files-cache.json");
     let contractFactory: StarknetContractFactory;
     let testCacheContractFactory: StarknetContractFactory;

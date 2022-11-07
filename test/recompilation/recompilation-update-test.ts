@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { starknet } from "hardhat";
 import { StarknetContract, StarknetContractFactory } from "hardhat/types";
 
-describe("Starknet", function () {
+describe.skip("Starknet", function () {
     let testCacheContractFactory: StarknetContractFactory;
 
     before(async function () {
