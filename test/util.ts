@@ -1,4 +1,7 @@
 import { expect } from "chai";
+import { starknet } from "hardhat";
+import { Account } from "hardhat/types/runtime";
+import { ETH_ADDRESS } from "./constants";
 
 export const OK_TX_STATUSES = ["PENDING", "ACCEPTED_ON_L2", "ACCEPTED_ON_L1"];
 
@@ -35,4 +38,30 @@ function adaptAddress(address: string) {
  */
 export function expectAddressEquality(actual: string, expected: string) {
     expect(adaptAddress(actual)).to.equal(adaptAddress(expected));
+}
+
+export async function getERC20Contract(address: string) {
+    const erc20Factory = await starknet.getContractFactory("../token-contract-artifacts/ERC20");
+    return erc20Factory.getContractAt(address);
+}
+
+export function getETHContract() {
+    return getERC20Contract(ETH_ADDRESS);
+}
+
+export async function getPredeployedAccounts() {
+    const accounts = await starknet.devnet.getPredeployedAccounts();
+    const results: Account[] = [];
+
+    for (const account of accounts) {
+        results.push(
+            await starknet.getAccountFromAddress(
+                account.address,
+                account.private_key,
+                "OpenZeppelin"
+            )
+        );
+    }
+
+    return results;
 }
