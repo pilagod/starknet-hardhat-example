@@ -30,6 +30,7 @@
   "dependencies": {
     "@toruslabs/starkware-crypto": "^1.1.0",
     "axios": "^0.24.0",
-    "hardhat": "2.9.9"
+    "hardhat": "2.9.9",
+    "starknet": "^4.9.0"
   }
 }
