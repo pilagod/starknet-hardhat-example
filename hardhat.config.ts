@@ -10,12 +10,9 @@ dotenv.config();
 const config: HardhatUserConfig = {
     solidity: "0.6.12",
     starknet: {
-        dockerizedVersion: "0.10.1", // alternatively choose one of the two venv options below
-        // uses (my-venv) defined by `python -m venv path/to/my-venv`
-        // venv: "path/to/my-venv",
-
-        // uses the currently active Python environment (hopefully with available Starknet commands!)
-        // venv: "active",
+        // dockerizedVersion: "0.10.1", // alternatively choose one of the two venv options below
+        venv: "active", // for the active virtual environment with installed starknet-devnet
+        // venv: "path/to/venv", // for env with installed starknet-devnet (created with e.g. `python -m venv path/to/venv`)
         recompile: false,
         network: "integrated-devnet",
         wallets: {
@@ -31,9 +28,18 @@ const config: HardhatUserConfig = {
             url: "http://127.0.0.1:5050"
         },
         integratedDevnet: {
-            url: "http://127.0.0.1:5050"
-            // venv: "active",
-            // dockerizedVersion: "<DEVNET_VERSION>",
+            url: "http://127.0.0.1:5050",
+            dockerizedVersion: "0.3.5",
+            // venv: "active", // for the active virtual environment with installed starknet-devnet
+            // venv: "path/to/venv", // for env with installed starknet-devnet (created with e.g. `python -m venv path/to/venv`)
+            args: [
+                "--seed",
+                "0",
+                "--gas-price",
+                "1",
+                "--initial-balance",
+                "100000000000000000000000"
+            ]
         },
         hardhat: {}
     }
