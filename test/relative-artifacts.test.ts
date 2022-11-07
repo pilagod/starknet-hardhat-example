@@ -9,7 +9,7 @@ describe("Starknet", function () {
     it("quick test for relative artifacts", async function () {
         console.log("Started deployment");
         const contractFactory: StarknetContractFactory = await starknet.getContractFactory(
-            "../test/test-artifacts/contract"
+            "../starknet-artifacts/contracts/contract"
         );
         const contract: StarknetContract = await contractFactory.deploy({ initial_balance: 0 });
         console.log("Deployed at", contract.address);
