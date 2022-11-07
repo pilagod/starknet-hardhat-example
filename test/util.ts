@@ -51,6 +51,7 @@ export function getETHContract() {
 
 export async function getPredeployedAccounts() {
     const accounts = await starknet.devnet.getPredeployedAccounts();
+    console.log(accounts);
     const results: Account[] = [];
 
     for (const account of accounts) {

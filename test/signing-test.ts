@@ -6,7 +6,7 @@ import { TIMEOUT } from "./constants";
 const WARNING =
     "Providing a custom signature on contract.invoke is not supported since Starknet 0.10 (plugin 0.6.6)";
 
-describe("Starknet", function () {
+describe.skip("Starknet", function () {
     this.timeout(TIMEOUT);
 
     before(function () {
