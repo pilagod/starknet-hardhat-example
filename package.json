@@ -4,9 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "npx hardhat --network localhost test",
+        "test": "npx hardhat --network localhost test --starknet-network devnet",
         "lint": "eslint $(git ls-files '*.ts')",
         "format": "prettier-eslint --list-different --write $(git ls-files '*.ts')",
+        "eth-devnet": "hardhat node",
         "starknet-devnet": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES starknet-devnet --seed 0"
     },
     "author": "",

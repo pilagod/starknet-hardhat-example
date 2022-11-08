@@ -2,14 +2,15 @@ node_modules
 .vscode
 .env
 .venv
+dump.pkl
 
-#Hardhat files
+# Hardhat files
 cache
 artifacts
 
-#Python artifacts
+# Python artifacts
 __pycache__
 .pytest_cache
 
-#Starknet plugin
+# Starknet plugin
 starknet-artifacts
